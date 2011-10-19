@@ -25,13 +25,6 @@
 ;;;3. press C-j at the line and you will find that you jumped to the corresponding line of my-po-file-name in another buffer.
 ;;;
 
-(defun proj-translation-org2ja ()
-  "The batch process to start translating org2ja."
-  (interactive)
-  (progn (find-file (concat my-po-file-directory my-po-file-name))
-    (find-file (concat my-po-file-directory my-texi-file-name))
-	 (texinfo-show-structure)))
-
 ;; To close related buffers
 ;; (delete-buffers-for-po)
 
