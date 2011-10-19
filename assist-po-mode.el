@@ -15,7 +15,7 @@
 ;;;(add-to-list 'load-path (expand-file-name "/path/to/assist-po-mode.el"))
 ;;;(require 'assist-po-mode)
 ;;;
-;;;(setq my-proj-path "/path/to/projct")
+;;;(setq my-proj-path "/path/to/proj")
 ;;;(setq my-texi-file-name "sample.texi")
 ;;;;(setq my-po-file-directory (concat my-proj-path "/" "tmp/"))
 ;;;(setq my-po-file-directory (concat my-proj-path "/"))
