@@ -4,10 +4,16 @@
 ;; You can edit po file with referring to at corresponding line of texi file.
 ;; This gives functions to  assists when using po-mode.el, to translate po file.
 ;;
-;; Usage:
-;; To start by texi fie with M-x Occur to show structure, and po file.
 
-;;;1. Add the following lines to .emacs
+;; Usage:
+;; 1. Open texi file (you have defined it as a variable my-texi-file-name)
+;;    and open po file (also defined it as my-po-file-name).
+;; 2. In the texi file buffer, press C-j at the line you want to jump.
+;;    You will find that you jumped to the corresponding line of
+;;    my-po-file-name in another buffer.
+;; 3. In the po file buffer, press n or p to move a next or previous entry.
+
+;;;How to install:
 ;;;
 ;;;(add-to-list 'load-path (expand-file-name "/path/to/assist-po-mode.el"))
 ;;;(require 'assist-po-mode)
