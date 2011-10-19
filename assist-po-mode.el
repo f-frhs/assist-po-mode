@@ -38,15 +38,20 @@
 (require 'po-mode)
 (require 'texinfo)
 
-(defvar my-proj-path "/home/user/proj")
-(defvar my-texi-file-name "sample.texi")
-;(defvar my-po-file-directory (concat my-proj-path "/" "tmp/"))
-(defvar my-po-file-directory (concat my-proj-path "/"))
-(defvar my-po-file-name "sample.po")
+(defvar my-proj-path "/home/user/proj"
+  "The directory which you manage.")
+(defvar my-texi-file-name "sample.texi"
+  "The texi file to refer when you are editing po file.")
+;(defvar my-po-file-directory (concat my-proj-path "/" "tmp/")
+;  "The directory name in case you have po file in sub directory of `my-proj-path'")
+(defvar my-po-file-directory (concat my-proj-path "/")
+  "The directory your po file stored.")
+(defvar my-po-file-name "sample.po"
+  "The file name of po file to edit.")
 
 
 (defun move-to-first-window ()
-  "Move the most top-left window in this frame. This shuould have the name, my-occur-buffer-name."
+  "Move the most top-left window in this frame. This should have the name, my-occur-buffer-name."
   (interactive)
   (select-window (frame-first-window (selected-frame))))
 
@@ -69,7 +74,7 @@
     (search-backward-regexp "^$")
     (next-line)
 
-;; FIXME
+;; FIX ME
 ;;       to avoid "^@node" when (search-forward-regexp "^$") and to (next-line)
 ;;
     (if (equal (buffer-substring-no-properties (point) (+ (point) 5)) "@node")
