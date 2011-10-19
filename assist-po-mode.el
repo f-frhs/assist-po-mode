@@ -1,11 +1,8 @@
+;;; assist-po-mode.el --- jump functions for po-mode.el
+
 ;; Commentary
-;; This gives function assists to use po-mode.el, to translate po file.
-;; 1. You can jump to the coresponding line of the po file from texi file.
-;; 2. You have a view of following mode when you are in a po file by pressing
-;;    n (po-next-entry)
-;;    p (po-previous-entry)
-;;    . (po-current-entry)
-;;
+;; You can edit po file with referring to at corresponding line of texi file.
+;; This gives functions to  assists when using po-mode.el, to translate po file.
 ;;
 ;; Usage:
 ;; To start by texi fie with M-x Occur to show structure, and po file.
