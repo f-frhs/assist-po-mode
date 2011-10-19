@@ -14,6 +14,7 @@
 ;; 3. In the po file buffer, press n or p to move a next or previous entry.
 
 ;;;How to install:
+;;;1. Add the following lines to .emacs, after adjusting to suite your system.
 ;;;
 ;;;(add-to-list 'load-path (expand-file-name "/path/to/assist-po-mode.el"))
 ;;;(require 'assist-po-mode)
@@ -24,8 +25,12 @@
 ;;;(setq my-po-file-directory (concat my-proj-path "/"))
 ;;;(setq my-po-file-name "sample.po")
 ;;;
-;;;2. Open texi file (you have defined with the variable my-texi-file-name)
-;;;3. press C-j at the line and you will find that you jumped to the corresponding line of my-po-file-name in another buffer.
+;;;   It is assumed that you have 2 related files.
+;;;    - /path/to/project/sample.texi
+;;;    - /path/to/project/sample.po
+;;;   where, `sample.po' was generated from `sample.texi' and is to
+;;;   edit to proceed translation.
+;;;
 ;;;
 
 (defun proj-translation-org2ja ()
