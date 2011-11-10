@@ -8,6 +8,9 @@
 ;;   find the sticky window that always shows corresponding line of po
 ;;   file.
 ;;
+;; Screenshot:
+;;   - https://cacoo.com/diagrams/AVAmgqMyVsValX2g-1A11D.png :jump to po file
+;;
 ;; Requirements:
 ;;   + po-mode.el
 ;;   + texinfo.el
