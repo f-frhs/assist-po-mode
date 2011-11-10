@@ -2,9 +2,8 @@
 
 ## What is assist-po-mode?
 
-This program displays the corresponding line of po file in the Emacs buffer.
-
-![screenshot-jump-to-po-file](https://cacoo.com/diagrams/AVAmgqMyVsValX2g-1A11D.png?width=600)
+This program displays the corresponding line of po file to texi file in the Emacs buffer.
+This program also displays the crresponding line of texi file to po file.
 
 ### Screenshots
 
