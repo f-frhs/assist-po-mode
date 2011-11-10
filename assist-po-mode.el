@@ -8,6 +8,10 @@
 ;;   find the sticky window that always shows corresponding line of po
 ;;   file.
 ;;
+;; Requirements:
+;;   + po-mode.el
+;;   + texinfo.el
+;;
 
 ;; Usage:
 ;; 1. Open texi file (you have defined it as a variable my-texi-file-name)
