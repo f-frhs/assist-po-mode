@@ -72,3 +72,4 @@ and you will find the org.texi buffer also shows corresponding line, that is 112
 ![screenshot-follow-mode-after-movement-in-po-file](https://cacoo.com/diagrams/iz850PbIruJWmyYP-B26F7.png)
 You can find the same phenomena by pressing p (previous) and . (current).
 
+This is all that assist-po-mode.el provides.
