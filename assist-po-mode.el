@@ -1,8 +1,12 @@
 ;;; assist-po-mode.el --- jump functions for po-mode.el
 
-;; Commentary
-;; You can edit po file with referring to at corresponding line of texi file.
-;; This gives functions to  assists when using po-mode.el, to translate po file.
+;; What is this?:
+;;   You can edit po file with following mode that always refers to at
+;;   corresponding line of texi file.  When you push C-j in the texi
+;;   file, you will jump to the corresponding line of po file.  When
+;;   you move to next/provious msgid in po file with n/p key, you will
+;;   find the sticky window that always shows corresponding line of po
+;;   file.
 ;;
 
 ;; Usage:
