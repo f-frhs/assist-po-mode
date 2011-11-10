@@ -12,6 +12,14 @@
 ;;   + po-mode.el
 ;;   + texinfo.el
 ;;
+;; Keybindings:
+;;   In the buffer of po file:
+;;     n => move to the next msgid with following mode
+;;     p => move to the previous msgid with following mode
+;;     . => show the current msgid with folloing mode
+;;   In the buffer of texi file:
+;;     C-j => jump-to-coresponding-line-in-po-file
+;;
 
 ;; Usage:
 ;; 1. Open texi file (you have defined it as a variable my-texi-file-name)
