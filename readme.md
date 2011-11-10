@@ -8,6 +8,10 @@ This program also displays the crresponding line of texi file to po file.
 ### Screenshots
 
 ![screenshot-jump-to-po-file](https://cacoo.com/diagrams/AVAmgqMyVsValX2g-1A11D.png?width=600)
+
+## Installation
+see the section ("For member of org-ja") or assist-po-mode.el.
+
 ## For member of org-ja
 ### Setting example:
 Firstly, you need to
