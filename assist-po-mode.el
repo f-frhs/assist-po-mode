@@ -1,16 +1,39 @@
-;; Commentary
-;; This gives function assists to use po-mode.el, to translate po file.
-;; 1. You can jump to the coresponding line of the po file from texi file.
-;; 2. You have a view of following mode when you are in a po file by pressing
-;;    n (po-next-entry)
-;;    p (po-previous-entry)
-;;    . (po-current-entry)
-;;
-;;
-;; Usage:
-;; To start by texi fie with M-x Occur to show structure, and po file.
+;;; assist-po-mode.el --- jump functions for po-mode.el
 
-;;;1. Add the following lines to .emacs
+;; What is this?:
+;;   You can edit po file with following mode that always refers to at
+;;   corresponding line of texi file.  When you push C-j in the texi
+;;   file, you will jump to the corresponding line of po file.  When
+;;   you move to next/provious msgid in po file with n/p key, you will
+;;   find the sticky window that always shows corresponding line of po
+;;   file.
+;;
+;; Screenshot:
+;;   - https://cacoo.com/diagrams/AVAmgqMyVsValX2g-1A11D.png :jump to po file
+;;
+;; Requirements:
+;;   + po-mode.el
+;;   + texinfo.el
+;;
+;; Keybindings:
+;;   In the buffer of po file:
+;;     n => move to the next msgid with following mode
+;;     p => move to the previous msgid with following mode
+;;     . => show the current msgid with folloing mode
+;;   In the buffer of texi file:
+;;     C-j => jump-to-coresponding-line-in-po-file
+;;
+
+;; Usage:
+;; 1. Open texi file (you have defined it as a variable my-texi-file-name)
+;;    and open po file (also defined it as my-po-file-name).
+;; 2. In the texi file buffer, press C-j at the line you want to jump.
+;;    You will find that you jumped to the corresponding line of
+;;    my-po-file-name in another buffer.
+;; 3. In the po file buffer, press n or p to move a next or previous entry.
+
+;;;How to install:
+;;;1. Add the following lines to .emacs, after adjusting to suite your system.
 ;;;
 ;;;(add-to-list 'load-path (expand-file-name "/path/to/assist-po-mode.el"))
 ;;;(require 'assist-po-mode)
@@ -21,8 +44,12 @@
 ;;;(setq my-po-file-directory (concat my-proj-path "/"))
 ;;;(setq my-po-file-name "sample.po")
 ;;;
-;;;2. Open texi file (you have defined with the variable my-texi-file-name)
-;;;3. press C-j at the line and you will find that you jumped to the corresponding line of my-po-file-name in another buffer.
+;;;   It is assumed that you have 2 related files.
+;;;    - /path/to/project/sample.texi
+;;;    - /path/to/project/sample.po
+;;;   where, `sample.po' was generated from `sample.texi' and is to
+;;;   edit to proceed translation.
+;;;
 ;;;
 
 ;; To close related buffers
@@ -31,15 +58,20 @@
 (require 'po-mode)
 (require 'texinfo)
 
-(defvar my-proj-path "/home/user/proj")
-(defvar my-texi-file-name "sample.texi")
-;(defvar my-po-file-directory (concat my-proj-path "/" "tmp/"))
-(defvar my-po-file-directory (concat my-proj-path "/"))
-(defvar my-po-file-name "sample.po")
+(defvar my-proj-path "/home/user/proj"
+  "The directory which you manage.")
+(defvar my-texi-file-name "sample.texi"
+  "The texi file to refer when you are editing po file.")
+;(defvar my-po-file-directory (concat my-proj-path "/" "tmp/")
+;  "The directory name in case you have po file in sub directory of `my-proj-path'")
+(defvar my-po-file-directory (concat my-proj-path "/")
+  "The directory your po file stored.")
+(defvar my-po-file-name "sample.po"
+  "The file name of po file to edit.")
 
 
 (defun move-to-first-window ()
-  "Move the most top-left window in this frame. This shuould have the name, my-occur-buffer-name."
+  "Move the most top-left window in this frame. This should have the name, my-occur-buffer-name."
   (interactive)
   (select-window (frame-first-window (selected-frame))))
 
@@ -62,7 +94,7 @@
     (search-backward-regexp "^$")
     (next-line)
 
-;; FIXME
+;; FIX ME
 ;;       to avoid "^@node" when (search-forward-regexp "^$") and to (next-line)
 ;;
     (if (equal (buffer-substring-no-properties (point) (+ (point) 5)) "@node")
