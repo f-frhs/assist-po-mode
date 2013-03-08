@@ -70,90 +70,60 @@
   "The file name of po file to edit.")
 
 
-(defun jump-to-coresponding-line-in-po-file ()
-  ""
-  (interactive)
-  (let ()
-    (search-backward-regexp "^$")
-    (next-line)
+(defun show1-po-file-other-window (line-in-texi) "\
+Display the corresponding line of po-file in another window.
+The corresponding line is found by searching the current line number
+(LINE-IN-TEXI) of texi-file buffer, in the po-file buffer.
+"
+  (interactive "N")
+  (unless (window-live-p (get-buffer-window my-po-file-name))
+    (pop-to-buffer my-po-file-name t))
+  (with-selected-window (get-buffer-window my-po-file-name)
+    (prog2 (goto-char (point-min))
+	(search-forward-regexp
+	 (concat my-texi-file-name ":" (number-to-string line-in-texi) "[^0-9]")
+	 (point-max)
+	 t)
+      (recenter))))
 
-;; FIX ME
-;;       to avoid "^@node" when (search-forward-regexp "^$") and to (next-line)
-;;
-    (if (equal (buffer-substring-no-properties (point) (+ (point) 5)) "@node")
-	(next-line))
-;;
-;;
+(defun show-po-file-smartly-in-other-window (&optional arg) "\
+Display in another window the corresponding block the current line
+describes.  When the corresponding line to follow is not found, the
+next nearest corresponding line will be shown.
 
-    (setq min-line-in-texi-file (line-number-at-pos))
-    (search-forward-regexp "^$")
-;    (hilight-line)
-    (setq max-line-in-texi-file (line-number-at-pos))
+With a prefix arg ARG, makes po-file buffer follow only the current
+line.  In this case, if nothing is found to follow, nothing will
+happen.
 
-    (pop-to-buffer my-po-file-name)
-    (goto-char 1)
+When this command is called twice with no break, the point moves to
+the next line forcibly and then searchs the next corresponding line.
+"
+  (interactive "P")
+  (cond ((equal arg '(4))
+	 (show1-po-file-other-window (line-number-at-pos)))
+	(t
+	 (when (eq last-command this-command)
+	   (forward-line))
+	 (while (and (not (eobp))
+		     (not (show1-po-file-other-window (line-number-at-pos))))
+	   (forward-line))
+	 (when (eobp)
+	   (message "Reached the end of file with no msgid found.")))))
 
-    (setq reexp-for-lines
-	  (concat "\\("
-		  (mapconcat 'identity (number-to-string-array (generate-seq
-								min-line-in-texi-file
-								max-line-in-texi-file))
-			     "\\|")
-		  "\\)"))
-;   if 111-114
-;   (111, 112, 113, 114)
-;   \\(111\\|112\\|113\\|114\\)
-
-
-    (search-forward-regexp reexp-for-lines)))
-
-
-(defun generate-seq (begin end)
-  "if ``begin''=1 and ``end''=5, generates array '(1, 2, 3, 4, 5). "
-  (interactive"n\nn")
-  (let ()
-    (setq list-array (list end))
-    (setq element end)
-    (while (> element begin)
-      (progn (setq element (1- element))
-	     (setq list-array (cons element list-array))))
-    list-array))
-
-(defun number-to-string-array (list)
-  "(1, 2, 3) -> (\"1\", \"2\", \"3\")"
-;  (interactive)
-  (let ()
-    (setq value nil)
-    (dolist (element
-	     list
-	     value)
-      (setq value (cons (number-to-string element) value)))
-    (reverse value)))
-
-
-
-(defun my-po-move-in-texi-file-to-current-po-entry ()
-  "Get line number to jump in texi-file-to-current-po-entry by searching \"#: texi-filename:12345\". After getting target line number (e.g. 12345), goto-line the line number and redisplay at the center of the window."
+(defun my-po-current-entry-followed-by-recentered-texi-window () "\
+Shows and recenters the corresponding line of texi buffer in other window,
+according to po-file's current entry, such as
+\"#:texi-filename:12345\"."
   (interactive)
   (save-excursion
-
-;    (hilight-line)
-
     (re-search-backward (concat "^#: " my-texi-file-name ":" "\\([0-9]+\\\)[ ]*"))
-    (setq line-no (string-to-number
-		   (setq line-no-str
-			 (buffer-substring-no-properties (match-beginning 1) (match-end 1)))
-		   10))
-    (pop-to-buffer my-texi-file-name)
-    (goto-line line-no)
-    (recenter)
-
-;    (hilight-line)
-
-    (pop-to-buffer my-po-file-name)
-    ))
-
-
+    (let* ((line-no-str (buffer-substring-no-properties (match-beginning 1) (match-end 1)))
+	   (line-no (string-to-number line-no-str)))
+    (unless (window-live-p (get-buffer-window my-texi-file-name))
+      (pop-to-buffer my-texi-file-name t))
+    (with-selected-window (get-buffer-window my-texi-file-name)
+      (goto-line line-no)
+      (recenter)))))
 
 (defun delete-buffers-for-po ()
   "delete all buffers related with the editing po file."
@@ -175,10 +145,10 @@
 
 
 (defadvice po-current-entry (after po-current-entry-and-recenter-texi-buffer)
-  (my-po-move-in-texi-file-to-current-po-entry))
+  (my-po-current-entry-followed-by-recentered-texi-window))
 (ad-activate 'po-current-entry)
 
-(define-key texinfo-mode-map "\C-j" 'jump-to-coresponding-line-in-po-file)
+(define-key texinfo-mode-map "\C-j" 'show-po-file-smartly-in-other-window)
 
 (provide 'assist-po-mode)
 
