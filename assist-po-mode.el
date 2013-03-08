@@ -70,23 +70,6 @@
   "The file name of po file to edit.")
 
 
-(defun move-to-first-window ()
-  "Move the most top-left window in this frame. This should have the name, my-occur-buffer-name."
-  (interactive)
-  (select-window (frame-first-window (selected-frame))))
-
-(defun hilight-line ()
-  "Hilight just one region. The hilighted region moves when this function is called."
-  (interactive)
-  (if (not (overlayp ovl))
-      (progn (setq ovl (make-overlay (point-at-bol) (point-at-eol) (current-buffer)))
-	     (overlay-put ovl 'face 'highlight)))
-
-; remove all overlays in the current-buffer.
-;  (remove-overlays)
-  (move-overlay ovl (point-at-bol) (point-at-eol) (current-buffer)))
-
-
 (defun jump-to-coresponding-line-in-po-file ()
   ""
   (interactive)
