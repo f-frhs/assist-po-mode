@@ -1,5 +1,5 @@
 * What is assist-po-mode?
-When you make a move po-file or texi-file, the reference follow you automatically in another window.
+When you make a move in po-file or texi-file, the reference follow you automatically in another window.
 
 ** Demo
 *** Case 1. Moving in po-file
