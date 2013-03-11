@@ -1,0 +1,16 @@
+* What is assist-po-mode?
+When you make a move po-file or texi-file, the reference follow you automatically in another window.
+
+** Demo
+*** Case 1. Moving in po-file
+You are moving in po-file (org-ja.po), and the reference (texi-file, org.texi) in another buffer follows you.
+
+[[./demo/move-demo.gif]]
+
+*** Case 2. Moving in texi-file
+You are moving in texi-file (org.texi), and the reference (org-ja.po) in another buffer follows you.
+
+[[./demo/C-j-demo.gif]]
+
+* Installation
+See assist-po-mode.el
